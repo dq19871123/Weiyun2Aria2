@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Weiyun2Aria2
 // @namespace    https://github.com/dq19871123/Weiyun2Aria2/
-// @version      0.0.1
+// @version      0.0.2
 // @description  直接解析微云直链并推送到Aria2进行下载
 // @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMjg0YzciLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzI1NjNlYiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFkNGVkOCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJiIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRhZGU4MCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEwYjk4MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMGYxNzJhIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMWUyOTNiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyOCIgaGVpZ2h0PSIxMjgiIHJ4PSIyOCIgZmlsbD0idXJsKCNhKSIvPjxwYXRoIGQ9Ik00MiA2OGg0NGM5LjkgMCAxOC04LjEgMTgtMTggMC04LjktNi41LTE2LjMtMTUuMS0xNy43Qzg2LjcgMjEuNiA3Ni41IDE0IDY0IDE0Yy0xMC40IDAtMTkuNCA2LjEtMjMuNyAxNUMzMC4zIDMwLjIgMjMgMzguOCAyMyA0OWMwIDEwLjUgOC41IDE5IDE5IDE5eiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjk1Ii8+PHBhdGggZD0iTTUwIDM0djEyTTY0IDI2djIwTTc4IDM0djEyIiBzdHJva2U9IiMwMjg0YzciIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNjQgODQgNDYgNThoMTFWNDRoMTR2MTRoMTFMNjQgODR6IiBmaWxsPSJ1cmwoI2IpIi8+PHJlY3QgeD0iMjYiIHk9IjkwIiB3aWR0aD0iNzYiIGhlaWdodD0iMjYiIHJ4PSI4IiBmaWxsPSJ1cmwoI2MpIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjY0IiB5PSIxMDMiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzhiZGY4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgbGV0dGVyLXNwYWNpbmc9IjEiPkFyaWEyPC90ZXh0Pjwvc3ZnPg==
 // @author       dq19871123
@@ -112,14 +112,14 @@
 		return {
 			rpcUrl: (GM_getValue('wy_dir_rpc_url', DEFAULT_CONFIG.rpcUrl) || '').trim(),
 			rpcSecret: (GM_getValue('wy_dir_rpc_secret', DEFAULT_CONFIG.rpcSecret) || '').trim(),
-			threads: Math.min(Math.max(parseInt(GM_getValue('wy_dir_threads', DEFAULT_CONFIG.threads), 10) || 1, 1), 16)
+			threads: Math.max(parseInt(GM_getValue('wy_dir_threads', DEFAULT_CONFIG.threads), 10) || 1, 1)
 		};
 	}
 
 	function saveConfig(cfg) {
 		GM_setValue('wy_dir_rpc_url', (cfg.rpcUrl || '').trim());
 		GM_setValue('wy_dir_rpc_secret', (cfg.rpcSecret || '').trim());
-		GM_setValue('wy_dir_threads', Math.min(Math.max(parseInt(cfg.threads, 10) || 1, 1), 16));
+		GM_setValue('wy_dir_threads', Math.max(parseInt(cfg.threads, 10) || 1, 1));
 	}
 
 	if (typeof GM_registerMenuCommand !== 'undefined') {
@@ -177,12 +177,12 @@
 						<label style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">
 							下载分段 / 连接数 (Split & Max-Connections)
 						</label>
-						<input id="wy-cfg-threads" type="number" min="1" max="16" value="${current.threads}" style="
+						<input id="wy-cfg-threads" type="number" min="1" value="${current.threads}" style="
 							width: 100%; box-sizing: border-box; padding: 9px 12px; font-size: 13px;
 							border: 1px solid #cbd5e1; border-radius: 6px; outline: none;
 						" />
 						<div style="font-size: 12px; color: #64748b; margin-top: 4px;">
-							该值不宜设置过大，默认值为10，若出现无法下载请适当调小。
+							线程数默认值为10，原版aria2线程数上限为16，请确认自己使用的aria2的线程数限制，超出限制会导致任务失败。线程数设置过大也可能会触发腾讯风控，请谨慎设置。
 						</div>
 					</div>
 				</div>
@@ -225,7 +225,7 @@
 			const rpcUrl = document.getElementById('wy-cfg-rpcurl').value.trim();
 			const rpcSecret = document.getElementById('wy-cfg-secret').value.trim();
 			let threads = parseInt(document.getElementById('wy-cfg-threads').value, 10) || 1;
-			threads = Math.min(Math.max(threads, 1), 16);
+			threads = Math.max(threads, 1);
 
 			if (!rpcUrl) {
 				alert('Aria2 RPC 接口地址不能为空！');
@@ -489,7 +489,6 @@
 						directBtn.addEventListener('click', downloadDirectly);
 
 						mutation.target.insertBefore(directBtn, actionItems[0].nextSibling);
-						mutation.target.insertBefore(settingBtn, directBtn.nextSibling);
 					}
 				}
 			};
