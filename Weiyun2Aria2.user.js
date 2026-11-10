@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Weiyun2Aria2
 // @namespace    https://github.com/dq19871123/Weiyun2Aria2/
-// @version      0.0.2
-// @description  直接解析微云直链并推送到Aria2进行下载
-// @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMjg0YzciLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzI1NjNlYiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFkNGVkOCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJiIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRhZGU4MCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEwYjk4MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMGYxNzJhIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMWUyOTNiIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjEyOCIgaGVpZ2h0PSIxMjgiIHJ4PSIyOCIgZmlsbD0idXJsKCNhKSIvPjxwYXRoIGQ9Ik00MiA2OGg0NGM5LjkgMCAxOC04LjEgMTgtMTggMC04LjktNi41LTE2LjMtMTUuMS0xNy43Qzg2LjcgMjEuNiA3Ni41IDE0IDY0IDE0Yy0xMC40IDAtMTkuNCA2LjEtMjMuNyAxNUMzMC4zIDMwLjIgMjMgMzguOCAyMyA0OWMwIDEwLjUgOC41IDE5IDE5IDE5eiIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iLjk1Ii8+PHBhdGggZD0iTTUwIDM0djEyTTY0IDI2djIwTTc4IDM0djEyIiBzdHJva2U9IiMwMjg0YzciIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNjQgODQgNDYgNThoMTFWNDRoMTR2MTRoMTFMNjQgODR6IiBmaWxsPSJ1cmwoI2IpIi8+PHJlY3QgeD0iMjYiIHk9IjkwIiB3aWR0aD0iNzYiIGhlaWdodD0iMjYiIHJ4PSI4IiBmaWxsPSJ1cmwoI2MpIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjY0IiB5PSIxMDMiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzhiZGY4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgbGV0dGVyLXNwYWNpbmc9IjEiPkFyaWEyPC90ZXh0Pjwvc3ZnPg==
+// @version      0.1.3
+// @description  直接解析微云直链并推送到Aria2进行下载，支持单文件、视频免流直链与批量打包直推，内置腾讯190054频控自动绕过与单选精准识别机制
+// @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImEiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMjg0YzciLz48c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzI1NjNlYiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFkNGVkOCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJiIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRhZGU4MCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEwYjk4MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJjIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBmMTcyYSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFlMjkzYiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjgiIGhlaWdodD0iMTI4IiByeD0iMjgiIGZpbGw9InVybCgjYSkiLz48cGF0aCBkPSJNNjIgNjhoNDRjOS45IDAgMTgtOC4xIDE4LTE4IDAtOC45LTYuNS0xNi4zLTE1LjEtMTcuN0M4Ni43IDIxLjYgNzYuNSAxNCA2NCAxNGMtMTAuNCAwLTE5LjQgNi4xLTIzLjcgMTVDMzAuMyAzMC4yIDIzIDM4LjggMjMgNDljMCAxMC41IDguNSAxOSAxOSAxOXoiIGZpbGw9IiNmZmYiIG9wYWNpdHk9Ii45NSIvPjxwYXRoIGQ9Ik01MCAzNHYxMk02NCAyNnYyME03OCAzNHYxMiIgc3Ryb2tlPSIjMDI4NGM3IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNNjQgODQgNDYgNThoMTFWNDRoMTR2MTRoMTFMNjQgODR6IiBmaWxsPSJ1cmwoI2IpIi8+PHJlY3QgeD0iMjYiIHk9IjkwIiB3aWR0aD0iNzYiIGhlaWdodD0iMjYiIHJ4PSI4IiBmaWxsPSJ1cmwoI2MpIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iMiIvPjx0ZXh0IHg9IjY0IiB5PSIxMDMiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMzhiZGY4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iY2VudHJhbCIgbGV0dGVyLXNwYWNpbmc9IjEiPkFyaWEyPC90ZXh0Pjwvc3ZnPg==
 // @author       dq19871123
 // @updateURL    https://raw.githubusercontent.com/dq19871123/Weiyun2Aria2/main/Weiyun2Aria2.user.js
 // @downloadURL  https://raw.githubusercontent.com/dq19871123/Weiyun2Aria2/main/Weiyun2Aria2.user.js
@@ -40,7 +40,6 @@
 			document.body.appendChild(container);
 		}
 
-		// 根据类型定制状态指示条颜色
 		const borderColors = {
 			success: '#10b981',
 			error: '#ef4444',
@@ -53,7 +52,7 @@
 		toast.style.cssText = `
 			pointer-events: auto;
 			min-width: 280px;
-			max-width: 380px;
+			max-width: 440px;
 			background: #ffffff;
 			border-radius: 8px;
 			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -77,7 +76,7 @@
 
 		if (text) {
 			const textElem = document.createElement('div');
-			textElem.style.cssText = 'font-size: 12px; color: #64748b; line-height: 1.4; word-break: break-word;';
+			textElem.style.cssText = 'font-size: 12px; color: #64748b; line-height: 1.5; word-break: break-word;';
 			textElem.textContent = text;
 			toast.appendChild(textElem);
 		}
@@ -89,7 +88,6 @@
 			toast.style.transform = 'translateX(0)';
 		});
 
-		// 倒计时自动淡出销毁
 		setTimeout(() => {
 			toast.style.opacity = '0';
 			toast.style.transform = 'translateX(30px)';
@@ -101,7 +99,20 @@
 		}, timeout);
 	}
 
-	// ==================== 2. 配置存储与读取 ====================
+	// ==================== 2. 工具函数：文件大小格式化 ====================
+	function formatSize(bytes) {
+		if (!bytes || bytes <= 0) return '未知大小';
+		const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+		let i = 0;
+		let size = bytes;
+		while (size >= 1024 && i < units.length - 1) {
+			size /= 1024;
+			i++;
+		}
+		return `${size.toFixed(2)} ${units[i]}`;
+	}
+
+	// ==================== 3. 配置存储与读取 ====================
 	const DEFAULT_CONFIG = {
 		rpcUrl: 'http://127.0.0.1:6800/jsonrpc',
 		rpcSecret: '',
@@ -126,7 +137,7 @@
 		GM_registerMenuCommand('⚙️ 参数设置', showSettingsModal);
 	}
 
-	// ==================== 3. 可视化设置弹窗 ====================
+	// ==================== 4. 可视化设置弹窗 ====================
 	function showSettingsModal() {
 		if (document.getElementById('wy-direct-settings-modal')) return;
 
@@ -140,7 +151,7 @@
 			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 		">
 			<div style="
-				background: #ffffff; width: 450px; border-radius: 12px;
+				background: #ffffff; width: 460px; border-radius: 12px;
 				box-shadow: 0 20px 40px rgba(0,0,0,0.2); overflow: hidden;
 				display: flex; flex-direction: column; animation: wyFadeIn 0.2s ease-out;
 			">
@@ -182,7 +193,7 @@
 							border: 1px solid #cbd5e1; border-radius: 6px; outline: none;
 						" />
 						<div style="font-size: 12px; color: #64748b; margin-top: 4px;">
-							线程数默认值为10，原版aria2线程数上限为16，请确认自己使用的aria2的线程数限制，超出限制会导致任务失败。线程数设置过大也可能会触发腾讯风控，请谨慎设置。
+							默认 10 线程。原版 Aria2 最大支持 16 线程。请避免设置过高以防触发腾讯防刷流控。
 						</div>
 					</div>
 				</div>
@@ -244,52 +255,34 @@
 		});
 	}
 
-	// ==================== 4. 辅助解析与 Aria2 RPC 推送 ====================
+	// ==================== 5. Aria2 RPC 推送 ====================
 	function extractFileName(url, fallbackName) {
-		if (fallbackName && fallbackName.trim()) return fallbackName.trim();
-		try {
-			const u = new URL(url);
-			const fname = u.searchParams.get('fname');
-			if (fname) return decodeURIComponent(fname);
-			const parts = u.pathname.split('/');
-			return decodeURIComponent(parts[parts.length - 1]);
-		} catch (_) {}
-		return `weiyun_download_${Date.now()}`;
-	}
-
-	function parseWeiyunDownloadItems(jsonObj) {
-		const items = [];
-		function walk(node) {
-			if (!node || typeof node !== 'object') return;
-			if (node.download_url || node.https_download_url) {
-                                // 优先使用 HTTP 规避 564 回源问题
-				const directUrl = node.download_url || node.https_download_url;
-				items.push({
-					url: directUrl,
-					cookieName: node.cookie_name || 'FTN5K',
-					cookieValue: node.cookie_value || '',
-					fileName: node.file_name || ''
-				});
-				return;
-			}
-			for (let key of Object.keys(node)) {
-				walk(node[key]);
-			}
+		let name = fallbackName && fallbackName.trim() ? fallbackName.trim() : '';
+		if (!name) {
+			try {
+				const u = new URL(url);
+				const fname = u.searchParams.get('fname');
+				if (fname) name = decodeURIComponent(fname);
+				else {
+					const parts = u.pathname.split('/');
+					name = decodeURIComponent(parts[parts.length - 1]);
+				}
+			} catch (_) {}
 		}
-		walk(jsonObj);
-		return items;
+		return name || `weiyun_download_${Date.now()}`;
 	}
 
 	function pushTaskToAria2(item, config, fallbackName) {
+		const isPackage = item.isPackage || (item.url && item.url.includes('package_download'));
 		const fileName = extractFileName(item.url, fallbackName || item.fileName);
-		const cookieHeader = `${item.cookieName}=${item.cookieValue}`;
+		const cookieHeader = `${item.cookieName || 'FTN5K'}=${item.cookieValue || ''}`;
 		const threadsStr = config.threads.toString();
 
 		const options = {
 			"out": fileName,
 			"user-agent": navigator.userAgent,
 			"referer": "https://www.weiyun.com/",
-			"use-head": "false",  // 核心经验：跳过 HEAD 探测直接发 GET，防止微云 CDN 切断连接
+			"use-head": "false", // 跳过 HEAD 探测直接发 GET，防止微云 CDN 阻断
 			"allow-overwrite": "true",
 			"auto-file-renaming": "false",
 			"header": [`Cookie: ${cookieHeader}`],
@@ -323,176 +316,470 @@
 				responseType: 'json',
 				onload(res) {
 					if (res.status === 200 && res.response && !res.response.error) {
-						resolve({ success: true, fileName, gid: res.response.result });
+						resolve({ success: true, fileName, gid: res.response.result, expectedSize: item.expectedSize, isPackage });
 					} else {
 						const err = (res.response && res.response.error && res.response.error.message) || `HTTP ${res.status}`;
 						resolve({ success: false, fileName, error: err });
 					}
 				},
-				onerror(err) {
+				onerror(_) {
 					resolve({ success: false, fileName, error: '无法连接到 Aria2 RPC 接口' });
 				}
 			});
 		});
 	}
 
-	// ==================== 5. 业务核心：原生捕获与解析 ====================
-	const injectChunkId = Math.random().toString(36).substring(7);
+	// ==================== 6. 核心逻辑：精准节点提取与直链调度 ====================
+	let savedWebpackRequire = null;
+	let lastRightClickedNode = null;
 
-	location.host === 'www.weiyun.com' && webpackJsonp([7891], {
-		[injectChunkId]: function (modules, exports, require) {
-			const diskServices = Object.values(require.c)
-				.filter(x => x.exports && typeof x.exports.namespace === 'function' && typeof x.exports.namespace('PERSON').fetchUserInfo === 'function')
-				.map(x => x.exports.namespace);
-			const diskService = diskServices && diskServices[0]('PERSON');
+	// 捕获最近一次右键点击的文件节点，确保右键单选时绝对精准
+	document.addEventListener('contextmenu', (e) => {
+		const itemEl = e.target.closest('.list-group-item, .figure-list-item');
+		if (itemEl && itemEl.__vue__ && itemEl.__vue__.fileNode) {
+			lastRightClickedNode = itemEl.__vue__.fileNode;
+		} else {
+			lastRightClickedNode = null;
+		}
+	}, true);
 
-			if (!diskService) return;
+	// 获取选中的文件节点列表 (精准过滤，杜绝单选误判多选)
+	function getSelectedFileNodes() {
+		const seen = new Set();
+		const result = [];
 
-			async function downloadDirectly() {
-				const selected = document.querySelectorAll('.list-group-item.checked.act');
-				const fileNodes = Array.from(selected).map(item => item.__vue__.fileNode).filter(n => !n.isDir());
-
-				if (fileNodes.length === 0) return alert('请选择需要下载的文件');
-
-				const config = getConfig();
-				if (!config.rpcUrl) {
-					alert('请先配置 Aria2 RPC 接口！');
-					showSettingsModal();
-					return;
+		// 策略 1 (最精准，官方同款)：通过 Vuex Store 的 curNode.getKidNodes() 过滤 isSelected()
+		try {
+			let store = null;
+			if (savedWebpackRequire && savedWebpackRequire.c) {
+				const storeMod = savedWebpackRequire.c['+zu9'] ||
+					Object.values(savedWebpackRequire.c).find(m => m.exports && m.exports.default && m.exports.default.state && (m.exports.default.state.disk || m.exports.default.state.sharedir));
+				if (storeMod) {
+					store = storeMod.exports.default || storeMod.exports;
 				}
+			}
+			if (!store) {
+				const appEl = document.querySelector('#app') || document.querySelector('.layout-body') || document.body;
+				store = appEl && appEl.__vue__ && appEl.__vue__.$store;
+			}
 
-				const expectedBatchCount = Math.ceil(fileNodes.length / 3);
-				let interceptedCount = 0;
-
-				const originalOpen = XMLHttpRequest.prototype.open;
-				const originalSend = XMLHttpRequest.prototype.send;
-
-				XMLHttpRequest.prototype.open = function (method, url, ...args) {
-					this._method = method;
-					this._url = url;
-					return originalOpen.apply(this, [method, url, ...args]);
-				};
-
-				XMLHttpRequest.prototype.send = function (body) {
-					if (typeof this._url === 'string' && this._url.includes('DiskFileBatchDownload')) {
-						interceptedCount++;
-						if (interceptedCount >= expectedBatchCount) {
-							XMLHttpRequest.prototype.open = originalOpen;
-							XMLHttpRequest.prototype.send = originalSend;
-						}
-
-						const absoluteUrl = new URL(this._url, location.origin).href;
-						const fileNames = fileNodes.map(n => n.name || n.fileName || '');
-
-                                                // 直接使用 fetch 发起请求：自动继承原生会话与同源凭据
-						fetch(absoluteUrl, {
-							method: 'POST',
-							body: body,
-							credentials: 'include',
-							headers: { 'Content-Type': 'application/json' }
-						})
-						.then(r => r.json())
-						.then(async (json) => {
-							const downloadItems = parseWeiyunDownloadItems(json);
-							if (downloadItems.length === 0) {
-								showToast({
-									title: '解析异常',
-									text: '微云已响应但未提取到直链，请在控制台查看返回数据',
-									type: 'error',
-									timeout: 5000
-								});
-								console.error('[WeiyunDirect] 微云响应原数据:', json);
-								return;
-							}
-
-							let okCount = 0;
-							for (let i = 0; i < downloadItems.length; i++) {
-								const res = await pushTaskToAria2(downloadItems[i], config, fileNames[i]);
-								if (res.success) {
-									okCount++;
-								} else {
-									console.error(`[WeiyunDirect] 推送失败: ${res.fileName}, 原因: ${res.error}`);
-								}
-							}
-
-							showToast({
-								title: okCount === downloadItems.length ? '推送成功' : '部分推送失败',
-								text: `已提交 ${okCount}/${downloadItems.length} 个任务到 Aria2`,
-								type: okCount > 0 ? 'success' : 'error',
-								timeout: 4000
-							});
-						})
-						.catch(err => {
-							showToast({
-								title: '直链获取失败',
-								text: err.message,
-								type: 'error',
-								timeout: 5000
-							});
-						});
-
-						setTimeout(() => {
-							try { this.abort(); } catch (_) {}
-						}, 0);
-						return;
+			if (store && store.state) {
+				const diskState = store.state.disk || store.state.safebox || store.state.sharedir;
+				const curNode = diskState && diskState.curNode;
+				if (curNode && typeof curNode.getKidNodes === 'function') {
+					const kidNodes = curNode.getKidNodes() || [];
+					const selectedKids = kidNodes.filter(node => node && typeof node.isSelected === 'function' && node.isSelected());
+					if (selectedKids.length > 0) {
+						return selectedKids;
 					}
-					return originalSend.apply(this, [body]);
-				};
+				}
+			}
+		} catch (e) {
+			console.warn('[Weiyun2Aria2] 从 Vuex store 获取选中项异常:', e);
+		}
 
-                                // 分批触发微云原生调用
+		// 策略 2 (DOM 提取)：微云中所有条目均带静态类 "checked"，严禁使用 .checked 匹配！
+		// 选中的条目必须包含 "act" 类：列表视图为 .list-group-item.act，图标视图为 .figure-list-item.act
+		const actElements = document.querySelectorAll('.list-group-item.act, .figure-list-item.act');
+		actElements.forEach(el => {
+			const node = el.__vue__ && el.__vue__.fileNode;
+			if (node && typeof node.getId === 'function') {
+				const id = node.getId();
+				// 必须通过 node.isSelected() 核验证实处于激活选中状态
+				const isSelected = typeof node.isSelected === 'function' ? node.isSelected() : true;
+				if (isSelected && !seen.has(id)) {
+					seen.add(id);
+					result.push(node);
+				}
+			}
+		});
+
+		return result;
+	}
+
+	// 从 Webpack 模块缓存动态发现 ucNY 下载模块 (包含 getSingleUrl, getPackUrl)
+	function getDownloadModule() {
+		if (!savedWebpackRequire || !savedWebpackRequire.c) return null;
+		const c = savedWebpackRequire.c;
+		if (c['ucNY'] && c['ucNY'].exports) {
+			return c['ucNY'].exports.default || c['ucNY'].exports;
+		}
+		for (let k in c) {
+			const mod = c[k];
+			if (mod && mod.exports) {
+				const exp = mod.exports.default || mod.exports;
+				if (exp && typeof exp.getSingleUrl === 'function' && typeof exp.getPackUrl === 'function') {
+					return exp;
+				}
+			}
+		}
+		return null;
+	}
+
+	// 从 Webpack 模块缓存发现 diskService
+	function getDiskService() {
+		if (!savedWebpackRequire || !savedWebpackRequire.c) return null;
+		const diskServices = Object.values(savedWebpackRequire.c)
+			.filter(x => x.exports && typeof x.exports.namespace === 'function' && typeof x.exports.namespace('PERSON').fetchUserInfo === 'function')
+			.map(x => x.exports.namespace);
+		return diskServices && diskServices[0] && diskServices[0]('PERSON');
+	}
+
+	// 视频免流直链提取通道 (100% 避开 DiskFileBatchDownload 频控)
+	async function getVideoDownloadInfo(fileNode) {
+		const videoId = fileNode.getId();
+		const dirKey = fileNode.getPdirKey();
+		const ppdirKey = fileNode.getPPdirKey ? fileNode.getPPdirKey() : '';
+		let url = `https://www.weiyun.com/video_preview?videoID=${encodeURIComponent(videoId)}&dirKey=${encodeURIComponent(dirKey)}`;
+		if (ppdirKey) {
+			url += `&pdirKey=${encodeURIComponent(ppdirKey)}`;
+		}
+
+		const res = await fetch(url, { credentials: 'include' });
+		const html = await res.text();
+		const m = html.match(/window\.syncData\s*=\s*(\{.+?\});\s*<\/script>/);
+		if (m && m[1]) {
+			try {
+				const data = JSON.parse(m[1]);
+				const playInfo = data && data.cloudPlayInfo && data.cloudPlayInfo.origin_video_play_info;
+				if (playInfo && (playInfo.https_download_url || playInfo.download_url)) {
+					const nodeSize = typeof fileNode.getSize === 'function' ? fileNode.getSize() : (playInfo.file_size || 0);
+					return {
+						url: playInfo.https_download_url || playInfo.download_url,
+						cookieName: playInfo.cookie_name || 'FTN5K',
+						cookieValue: playInfo.cookie_value || '',
+						fileName: fileNode.getName ? fileNode.getName() : (playInfo.file_name || ''),
+						expectedSize: nodeSize,
+						isPackage: false
+					};
+				}
+			} catch (e) {
+				console.error('[Weiyun2Aria2] 解析 video_preview syncData 失败:', e);
+			}
+		}
+		return null;
+	}
+
+	// 单文件直链获取 (集成 190054 自动打包绕过与大小识别)
+	async function getFileDownloadInfo(fileNode, downloadModule, diskService) {
+		let lastError = null;
+		const nodeSize = typeof fileNode.getSize === 'function' ? fileNode.getSize() : 0;
+
+		// 1. 优先调用微云原生 getSingleUrl 模块 (cmd 2402，带 Content-Length 直链)
+		if (downloadModule && typeof downloadModule.getSingleUrl === 'function') {
+			try {
+				const info = await downloadModule.getSingleUrl(fileNode);
+				if (info && (info.https_download_url || info.download_url)) {
+					return {
+						url: info.https_download_url || info.download_url,
+						cookieName: info.cookie_name || 'FTN5K',
+						cookieValue: info.cookie_value || '',
+						fileName: fileNode.getName ? fileNode.getName() : (info.file_name || ''),
+						expectedSize: nodeSize,
+						isPackage: false
+					};
+				}
+			} catch (err) {
+				lastError = err;
+			}
+		} else if (diskService && typeof diskService.fetchDownloadFileInfo === 'function') {
+			// 兜底方案：使用 diskService.fetchDownloadFileInfo
+			try {
+				const res = await diskService.fetchDownloadFileInfo({ fileNodes: [fileNode] });
+				const info = (res && res.file_list && res.file_list[0]) || res;
+				if (info && (info.https_download_url || info.download_url)) {
+					return {
+						url: info.https_download_url || info.download_url,
+						cookieName: info.cookie_name || 'FTN5K',
+						cookieValue: info.cookie_value || '',
+						fileName: fileNode.getName ? fileNode.getName() : (info.file_name || ''),
+						expectedSize: nodeSize,
+						isPackage: false
+					};
+				}
+			} catch (err) {
+				lastError = err;
+			}
+		}
+
+		const ret = lastError && (lastError.ret || (lastError.data && lastError.data.rsp_header && lastError.data.rsp_header.retcode));
+		const msg = lastError && (lastError.msg || (lastError.data && lastError.data.rsp_header && lastError.data.rsp_header.retmsg) || lastError.message);
+
+		// 关键容灾策略：如果遇到 190054 (请求次数超限/频控)，自动降级切换打包通道 (cmd 2403) 绕过单文件风控
+		if (ret === 190054 || ret === '190054' || (msg && msg.includes('超限'))) {
+			showToast({
+				title: '单文件接口频控 (190054)',
+				text: '微云限制单文件下载，正在自动尝试打包通道 (cmd 2403) 绕过限制...',
+				type: 'warning',
+				timeout: 4000
+			});
+
+			if (downloadModule && typeof downloadModule.getPackUrl === 'function') {
 				try {
-					for (let i = 0; i < fileNodes.length; i += 3) {
-						diskService.fetchDownloadFileInfo({ fileNodes: fileNodes.slice(i, i + 3) });
+					const packInfo = await downloadModule.getPackUrl([fileNode]);
+					if (packInfo && (packInfo.https_download_url || packInfo.download_url)) {
+						return {
+							url: packInfo.https_download_url || packInfo.download_url,
+							cookieName: packInfo.cookie_name || 'FTN5K',
+							cookieValue: packInfo.cookie_value || '',
+							fileName: packInfo.zip_filename ? decodeURIComponent(packInfo.zip_filename) : `${fileNode.getName ? fileNode.getName() : 'file'}.zip`,
+							expectedSize: nodeSize,
+							isPackage: true
+						};
 					}
-				} catch (e) {
-					XMLHttpRequest.prototype.open = originalOpen;
-					XMLHttpRequest.prototype.send = originalSend;
-					alert('调用微云组件失败: ' + e.message);
+				} catch (packErr) {
+					console.error('[Weiyun2Aria2] 打包绕过通道亦失败:', packErr);
 				}
 			}
 
-			// ==================== 6. DOM 注入按钮 ====================
-			const observeCallback = function (mutations) {
-				for (let mutation of mutations) {
-					// 右键菜单
-					if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-						mutation.addedNodes.forEach(node => {
-							if (node.className && node.className.indexOf('mod-bubble-context-menu') > -1 && node.__vue__ && node.__vue__.items.some(e => e.method === 'download')) {
-								const contextItems = node.querySelectorAll('.menu-item');
-								const newContextItem = document.createElement('li');
-								newContextItem.className = 'menu-item';
-								newContextItem.innerHTML = '<span class="txt">直推 Aria2</span>';
-								newContextItem.addEventListener('click', () => {
-									downloadDirectly();
-									document.dispatchEvent(new Event('mousedown'));
-								});
-								contextItems[0].parentNode.insertBefore(newContextItem, contextItems[0].nextSibling);
-							}
+			throw new Error('微云单文件接口触发临时频控限制 (190054)。请等待 15~30 分钟冷却或更换网络/IP后再试。');
+		}
+
+		throw new Error(msg || '未能提取到有效直链，请稍后重试');
+	}
+
+	// 直推主入口
+	async function downloadDirectly(preferredNode) {
+		let fileNodes = [];
+
+		// 若指定了目标节点（例如右键菜单触发）
+		if (preferredNode && typeof preferredNode.getId === 'function') {
+			const currentSelected = getSelectedFileNodes();
+			// 如果当前是多选，且右键的目标恰好在多选列表中，则执行多选批量下载；否则判定为针对该节点的独立单选
+			if (currentSelected.length > 1 && currentSelected.some(n => n.getId() === preferredNode.getId())) {
+				fileNodes = currentSelected;
+			} else {
+				fileNodes = [preferredNode];
+			}
+		} else {
+			fileNodes = getSelectedFileNodes();
+		}
+
+		if (!fileNodes || fileNodes.length === 0) {
+			showToast({ title: '提示', text: '请先勾选需要下载的文件或文件夹', type: 'warning' });
+			return;
+		}
+
+		const config = getConfig();
+		if (!config.rpcUrl) {
+			alert('请先配置 Aria2 RPC 接口！');
+			showSettingsModal();
+			return;
+		}
+
+		const downloadModule = getDownloadModule();
+		const diskService = getDiskService();
+
+		// 多文件或包含文件夹：打包下载通道 (cmd 2403)
+		if (fileNodes.length > 1 || fileNodes.some(n => n.isDir && n.isDir())) {
+			let totalSize = 0;
+			fileNodes.forEach(f => {
+				if (typeof f.getSize === 'function') totalSize += f.getSize();
+			});
+			const sizeDesc = totalSize > 0 ? ` (源文件约 ${formatSize(totalSize)})` : '';
+
+			showToast({
+				title: '批量打包',
+				text: `正在为选中的 ${fileNodes.length} 项请求微云打包直链${sizeDesc}...`,
+				type: 'info',
+				timeout: 3000
+			});
+
+			try {
+				if (!downloadModule) throw new Error('未检测到微云下载组件，请稍后刷新重试');
+				const packInfo = await downloadModule.getPackUrl(fileNodes);
+				if (!packInfo || (!packInfo.https_download_url && !packInfo.download_url)) {
+					throw new Error('未获取到有效打包直链');
+				}
+				const directUrl = packInfo.https_download_url || packInfo.download_url;
+				const packName = packInfo.zip_filename ? decodeURIComponent(packInfo.zip_filename) : `weiyun_pack_${Date.now()}.zip`;
+
+				showToast({
+					title: '打包就绪',
+					text: `正在推送到 Aria2: ${packName}`,
+					type: 'info',
+					timeout: 3000
+				});
+
+				const res = await pushTaskToAria2({
+					url: directUrl,
+					cookieName: packInfo.cookie_name || 'FTN5K',
+					cookieValue: packInfo.cookie_value || '',
+					fileName: packName,
+					expectedSize: totalSize,
+					isPackage: true
+				}, config, packName);
+
+				if (res.success) {
+					showToast({
+						title: '推送成功 (打包通道)',
+						text: `已提交到 Aria2: ${res.fileName}${sizeDesc}`,
+						type: 'success',
+						timeout: 4500
+					});
+				} else {
+					showToast({
+						title: 'Aria2 接收失败',
+						text: res.error,
+						type: 'error',
+						timeout: 5000
+					});
+				}
+			} catch (err) {
+				console.error('[Weiyun2Aria2] 打包下载失败:', err);
+				const msg = (err && (err.msg || err.message)) || '未知错误';
+				showToast({
+					title: '打包下载失败',
+					text: msg,
+					type: 'error',
+					timeout: 5000
+				});
+			}
+			return;
+		}
+
+		// 单文件下载
+		const fileNode = fileNodes[0];
+		const fileName = fileNode.getName ? fileNode.getName() : 'weiyun_file';
+
+		// 1. 若为视频文件：优先采用 video_preview 解析高清免流直链 (100% 避开 190054 频控，带 Content-Length)
+		const isVideo = (fileNode.isVideo && fileNode.isVideo()) || /\.(mp4|mkv|avi|flv|rmvb|mov|wmv|webm|ts|m4v|3gp)$/i.test(fileName);
+		if (isVideo) {
+			showToast({
+				title: '解析中',
+				text: `检测到视频文件，正在提取直链: ${fileName}`,
+				type: 'info',
+				timeout: 3000
+			});
+
+			try {
+				const videoInfo = await getVideoDownloadInfo(fileNode);
+				if (videoInfo && videoInfo.url) {
+					const res = await pushTaskToAria2(videoInfo, config, fileName);
+					if (res.success) {
+						showToast({
+							title: '推送成功 (视频通道)',
+							text: `已提交到 Aria2: ${res.fileName}`,
+							type: 'success',
+							timeout: 4000
 						});
-					}
-
-					// 顶部工具栏
-					if (
-						mutation.type === 'attributes' &&
-						mutation.attributeName === 'style' &&
-						mutation.target.className.indexOf('mod-action-wrap-menu') > -1 &&
-						mutation.target.style.display !== 'none' &&
-						mutation.target.querySelectorAll('#action-item-aria-direct').length === 0
-					) {
-						const actionItems = mutation.target.querySelectorAll('.action-item');
-
-						// 直推按钮
-						const directBtn = document.createElement('div');
-						directBtn.id = 'action-item-aria-direct';
-						directBtn.className = 'action-item';
-						directBtn.innerHTML = '<div class="action-item-con"><i class="icon icon-download"></i><span class="act-txt">直推 Aria2</span></div>';
-						directBtn.addEventListener('click', downloadDirectly);
-
-						mutation.target.insertBefore(directBtn, actionItems[0].nextSibling);
+						return;
+					} else {
+						showToast({
+							title: 'Aria2 推送失败',
+							text: res.error,
+							type: 'error',
+							timeout: 5000
+						});
+						return;
 					}
 				}
-			};
-			new MutationObserver(observeCallback).observe(document.body, { attributes: true, childList: true, subtree: true });
+			} catch (e) {
+				console.warn('[Weiyun2Aria2] 视频直链提取异常，降级到常规下载通道:', e);
+			}
 		}
-	}, [injectChunkId]);
+
+		// 2. 常规单文件直链解析
+		showToast({
+			title: '解析中',
+			text: `正在获取单文件直链: ${fileName}`,
+			type: 'info',
+			timeout: 3000
+		});
+
+		try {
+			const itemInfo = await getFileDownloadInfo(fileNode, downloadModule, diskService);
+			const res = await pushTaskToAria2(itemInfo, config, fileName);
+			if (res.success) {
+				const channelDesc = itemInfo.isPackage ? ' (打包通道绕过)' : ' (原生单文件直链)';
+				const sizeHint = itemInfo.isPackage && itemInfo.expectedSize > 0 ? ` (源文件约 ${formatSize(itemInfo.expectedSize)})` : '';
+				showToast({
+					title: `推送成功${channelDesc}`,
+					text: `已提交到 Aria2: ${res.fileName}${sizeHint}`,
+					type: 'success',
+					timeout: 4500
+				});
+			} else {
+				showToast({
+					title: 'Aria2 推送失败',
+					text: res.error,
+					type: 'error',
+					timeout: 5000
+				});
+			}
+		} catch (err) {
+			console.error('[Weiyun2Aria2] 单文件直链获取失败:', err);
+			const msg = (err && (err.msg || err.message)) || '直链解析异常';
+			showToast({
+				title: '获取直链失败',
+				text: msg,
+				type: 'error',
+				timeout: 7000
+			});
+		}
+	}
+
+	// ==================== 7. DOM 注入与事件绑定 ====================
+	function initDirectDownloadUI() {
+		const observeCallback = function (mutations) {
+			for (let mutation of mutations) {
+				// 右键菜单注入
+				if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+					mutation.addedNodes.forEach(node => {
+						if (node.className && node.className.indexOf('mod-bubble-context-menu') > -1 && node.__vue__ && node.__vue__.items && node.__vue__.items.some(e => e.method === 'download')) {
+							if (node.querySelector('.wy-aria-context-item')) return;
+							const contextItems = node.querySelectorAll('.menu-item');
+							if (contextItems.length === 0) return;
+
+							const newContextItem = document.createElement('li');
+							newContextItem.className = 'menu-item wy-aria-context-item';
+							newContextItem.innerHTML = '<span class="txt">直推 Aria2</span>';
+							newContextItem.addEventListener('click', () => {
+								downloadDirectly(lastRightClickedNode);
+								document.dispatchEvent(new Event('mousedown'));
+							});
+							contextItems[0].parentNode.insertBefore(newContextItem, contextItems[0].nextSibling);
+						}
+					});
+				}
+
+				// 顶部操作栏注入
+				if (
+					mutation.type === 'attributes' &&
+					mutation.attributeName === 'style' &&
+					mutation.target.className &&
+					mutation.target.className.indexOf('mod-action-wrap-menu') > -1 &&
+					mutation.target.style.display !== 'none' &&
+					mutation.target.querySelectorAll('#action-item-aria-direct').length === 0
+				) {
+					const actionItems = mutation.target.querySelectorAll('.action-item');
+					if (actionItems.length === 0) return;
+
+					const directBtn = document.createElement('div');
+					directBtn.id = 'action-item-aria-direct';
+					directBtn.className = 'action-item';
+					directBtn.innerHTML = '<div class="action-item-con"><i class="icon icon-download"></i><span class="act-txt">直推 Aria2</span></div>';
+					directBtn.addEventListener('click', () => downloadDirectly(null));
+
+					mutation.target.insertBefore(directBtn, actionItems[0].nextSibling);
+				}
+			}
+		};
+
+		new MutationObserver(observeCallback).observe(document.body, { attributes: true, childList: true, subtree: true });
+	}
+
+	// ==================== 8. Webpack 挂载注入 ====================
+	const injectChunkId = Math.random().toString(36).substring(7);
+
+	if (location.host === 'www.weiyun.com' && typeof webpackJsonp === 'function') {
+		webpackJsonp([7891], {
+			[injectChunkId]: function (modules, exports, require) {
+				savedWebpackRequire = require;
+				initDirectDownloadUI();
+			}
+		}, [injectChunkId]);
+	} else {
+		initDirectDownloadUI();
+	}
 })();
